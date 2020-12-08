@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+            crossorigin="anonymous"
+        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+            integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="/src/static/css/main.css" />
+        <title>Barangay HealthCare|Pandemic Monitoring</title>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <!-- ? navigation placeholder paki remove niyo nalang palitan niyo ng official navigation bar  -->
+            <nav class="navbar navbar-expand-lg navbar-dark navbar-bg">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" href="#"
+                            >Home <span class="sr-only">(current)</span></a
+                        >
+                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="#">Pricing</a>
+                        <a
+                            class="nav-link disabled"
+                            href="#"
+                            tabindex="-1"
+                            aria-disabled="true"
+                            >Disabled</a
+                        >
+                    </div>
+                </div>
+            </nav>
+
+            <!-- ? end of navigation place holder -->
+
+            <!-- ? top section add-record, filter, and search -->
+            <div class="header-container">
+                <div class="header-section">
+                    <h1 class="header-text">Pandemic Preparedness</h1>
+                </div>
+
+                <div class="header-action-container">
+                    <div class="header-action">
+                        <button class="primary-btn mr-3">
+                            Add Record
+                            <i class="fas fa-user-plus"></i>
+                        </button>
+                        <div class="select-box">
+                            <div class="selected">Filter Record by</div>
+                            
+
+                            <div class="options-container">
+                                <div class="option">
+                                    <input
+                                        type="radio"
+                                        class="radio"
+                                        id="automobiles"
+                                        name="category"
+                                    />
+                                    <label for="automobiles"
+                                        >Patience Under Investigation</label
+                                    >
+                                </div>
+
+                                <div class="option">
+                                    <input
+                                        type="radio"
+                                        class="radio"
+                                        id="film"
+                                        name="category"
+                                    />
+                                    <label for="film">Recent Record</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="search-container">
+                        <form class="search-form" action="" method="GET">
+                            <div class="search-outer">
+                                <input
+                                    type="text"
+                                    name="search-value"
+                                    id="search-value"
+                                    class="search-input"
+                                    placeholder="Seach..."
+                                />
+                            </div>
+                            <input
+                                class="primary-btn"
+                                type="submit"
+                                value="Search"
+                            />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ? end of top section add-record, filter, and search -->
+
+            <!-- ? body-data  -->
+            <main class="main-container">
+                <div class="left">
+                    <table>
+                        <tr class="table-row" id="table-header">
+                            <th class="table-header">Full name</th>
+                            <th class="table-header">Age</th>
+                            <th class="table-header">Address</th>
+                            <th class="table-header">PUI</th>
+                            <th class="table-header">Action</th>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-data">Jomel Cadiente</td>
+                            <td class="table-data">20</td>
+                            <td class="table-data">Purok 5</td>
+                            <td class="table-data"><i class="negative fas fa-times-circle"></i></td>
+                            <td class="table-data"><a href="#"><i class="far fa-edit"></i></a> | <a href="#"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-data">Jomel Cadiente</td>
+                            <td class="table-data">20</td>
+                            <td class="table-data">Purok 5</td>
+                            <td class="table-data"><i class="negative fas fa-times-circle"></i></td>
+                            <td class="table-data"><a href="#"><i class="far fa-edit"></i></a> | <a href="#"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-data">Jomel Cadiente</td>
+                            <td class="table-data">20</td>
+                            <td class="table-data">Purok 5</td>
+                            <td class="table-data"><i class="negative fas fa-times-circle"></i></td>
+                            <td class="table-data"><a href="#"><i class="far fa-edit"></i></a> | <a href="#"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-data">Jomel Cadiente</td>
+                            <td class="table-data">20</td>
+                            <td class="table-data">Purok 5</td>
+                            <td class="table-data"><i class="negative fas fa-times-circle"></i></td>
+                            <td class="table-data"><a href="#"><i class="far fa-edit"></i></a> | <a href="#"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-data">Jomel Cadiente</td>
+                            <td class="table-data">20</td>
+                            <td class="table-data">Purok 5</td>
+                            <td class="table-data"><i class="negative fas fa-times-circle"></i></td>
+                            <td class="table-data"><a href="#"><i class="far fa-edit"></i></a> | <a href="#"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                       
+                       
+                    </table>
+                </div>
+                <div class="right">
+                    <div class="citizen-profile">
+                        <div class="citizen-img-container">
+                          <img src="https://www.adobe.com/content/dam/cc/us/en/creativecloud/photography/discover/portrait-photography/CODERED_B1_portrait_photography-P4a_438x447.jpg.img.jpg" alt="" class="citizen-img">
+                        </div>
+                    <div class="citizen-data">
+                        <div class="br profile-select-box select-box">
+                            <div class="profile-selected selected">View Travel History</div>
+                            
+
+                            <div class="options-container profile-options-container">
+                                <div class="t-option option">
+                                    <div class="option-left">
+                                        <p>Dec 07, 2020</p>
+                                    </div>
+                                    <div class="option-right">
+                                        <p>Barangay 1 San Mateo, Isabela</p>
+                                    </div>
+                                </div>
+
+                                <div class="t-option option">
+                                    <div class="option-left">
+                                        <p>Dec 07, 2020</p>
+                                    </div>
+                                    <div class="option-right">
+                                        <p>Barangay 1 San Mateo, Isabela</p>
+                                    </div>
+                                </div>
+
+                                <div class="t-option option">
+                                    <div class="option-left">
+                                        <p>Dec 07, 2020</p>
+                                    </div>
+                                    <div class="option-right">
+                                        <p>Barangay 1 San Mateo, Isabela</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="br profile-select-box select-box">
+                            <div class="profile-selected selected">View Person Interacted</div>
+                            
+
+                            <div class="options-container profile-options-container 2">
+                                <div class="interact-option">
+                                    <div class="interact-option-left">
+                                        <p>Dec 07, 2020</p>
+                                    </div>
+                                    <div class="interact-option-middle">
+                                        <p>John Bravo</p>
+                                    </div>
+                                    <div class="interact-option-right">
+                                        <span></span>
+                                        <span>Barangay 1 San Mateo, Isabela</span>
+                                    </div>
+                                </div>
+
+                                <div class="interact-option">
+                                    <div class="interact-option-left">
+                                        <p>Dec 07, 2020</p>
+                                    </div>
+                                    <div class="interact-option-middle">
+                                        <p>Susan William</p>
+                                    </div>
+                                    <div class="interact-option-right">
+                                        <p>Villa Magat San Mateo, Isabela</p>
+                                    </div>
+                                </div>
+
+                                <div class="interact-option">
+                                    <div class="option-left">
+                                        <p>Dec 07, 2020</p>
+                                    </div>
+                                    <div class="interact-option-middle">
+                                        <p>Daniel Crisostomo</p>
+                                    </div>
+                                    <div class="interact-option-right">
+                                        <p>Old Centro 1 San Mateo, Isabela</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="citizen-profile-information">
+                            <div class="citizen-personal-info">
+                                <ul class="personal-info">
+                                    <li>First Name: <span clsas="info-first">Susan</span></li>
+                                    <li>Last Name: <span clsas="info-last">Williams</span></li>
+                                    <li>Status: <span clsas="info-status">Positive</span></li>
+                                    <li>Day of Quarantine: <spa clsas="info-day">14days</spa></li>
+                                    <li>Age: <span clsas="info-age">25</span></li>
+                                    <li>Occupation: <span clsas="info-occupation">Stock Investor</span> </li>
+                                    <li>Civil Status: <span clsas="info-civil">Single</span></li>
+                                    <li>Covid Case: <span clsas="info-case">Asymptomatic</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+            </main>
+            <!-- ? end of body-data -->
+        </div>
+
+        <footer>
+          <div class="footer-container">
+            <p>this is footer</p>
+          </div>
+        </footer>
+    </body>
+    <script src="/src/static/js/script.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"
+    ></script>
+</html>
