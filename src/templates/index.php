@@ -1,31 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-            integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-            crossorigin="anonymous"
-        />
-        <link rel="stylesheet" href="/src/static/css/main.css" />
-        <title>Barangay HealthCare|Pandemic Monitoring</title>
-    </head>
-    <body>
-        <div class="container-fluid">
-            <!-- ? navigation placeholder paki remove niyo nalang palitan niyo ng official navigation bar  -->
-            <nav class="navbar navbar-expand-lg navbar-dark navbar-bg">
-                <div class="container-md">
-                  <a class="navbar-brand" href="#">Navbar</a>
-                </div>
-            </nav>
+<?php 
+    include('base.php');
+?>
 
             <!-- ? end of navigation place holder -->
 
@@ -96,7 +71,12 @@
             <!-- ? body-data  -->
             <main class="main-container">
                 <div class="left">
-                    <table>
+
+                <?php 
+                
+                    include('./table.php')
+                ?>
+                    <!-- <table>
                         <tr class="table-row" id="table-header">
                             <th class="table-header">Full name</th>
                             <th class="table-header">Age</th>
@@ -111,16 +91,10 @@
                             <td class="table-data"><i class="negative fas fa-times-circle"></i></td>
                             <td class="table-data"><a href="#"><i class="far fa-edit"></i></a> | <a href="#"><i class="fas fa-trash"></i></a></td>
                         </tr>
-                        <tr class="table-row">
-                            <td class="table-data">Jomel Cadiente</td>
-                            <td class="table-data">20</td>
-                            <td class="table-data">Purok 5</td>
-                            <td class="table-data"><i class="negative fas fa-times-circle"></i></td>
-                            <td class="table-data"><a href="#"><i class="far fa-edit"></i></a> | <a href="#"><i class="fas fa-trash"></i></a></td>
-                        </tr>
+
                     
               
-                    </table>
+                    </table> -->
                 </div>
                 <div class="right">
                     <div class="citizen-profile">
@@ -344,12 +318,7 @@
             <!-- ? end of modal -->
         </div>
 
-        <footer>
-          <div class="footer-container">
-            <p>this is footer</p>
-          </div>
-        </footer>
-    </body>
-    <script src="/src/static/js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-</html>
+<?php 
+
+    include('footer.php');
+?>
