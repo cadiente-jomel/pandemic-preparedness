@@ -181,7 +181,11 @@
                             </div>
                         </div>
                         <div class="citizen-profile-information">
-                            <div class="citizen-personal-info">
+                        <?php
+                        
+                            // include('./about_user.php');
+                        ?>
+                            <!-- <div class="citizen-personal-info">
                                 <ul class="personal-info">
                                     <li>First Name: <span clsas="info-first">Susan</span></li>
                                     <li>Last Name: <span clsas="info-last">Williams</span></li>
@@ -192,7 +196,7 @@
                                     <li>Civil Status: <span clsas="info-civil">Single</span></li>
                                     <li>Covid Case: <span clsas="info-case">Asymptomatic</span></li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
             </main>

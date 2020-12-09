@@ -132,7 +132,22 @@ document.addEventListener("click", closeAllSelect);
 
 
 
+const tableRow = document.querySelectorAll('.table-click');
 
+tableRow.forEach(row => {
+  row.addEventListener('click', () => {
+    let curr_id = parseInt(row.childNodes[0].textContent);
+    
+    fetch('.././includes/detailed.php', {
+      'userId': curr_id
+    }).then((res) => {
+      return res.json()
+    })
+    .then(data => {
+      console.log(data)
+    })
+  })
+})
 
 
 

@@ -1,6 +1,7 @@
 
 <table>
     <tr class="table-row" id="table-header">
+        <th class="table-header">ID</th>
         <th class="table-header">Full name</th>
         <th class="table-header">Age</th>
         <th class="table-header">Address</th>

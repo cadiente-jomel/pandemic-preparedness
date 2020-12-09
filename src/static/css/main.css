@@ -128,10 +128,12 @@ body {
 
 .fa-edit {
     color: var(--btn-darker);
+    pointer-events: none;
 }
 
 .fa-trash {
     color: var(--warning-bg-color);
+    pointer-events: none;
 }
 
 .secondary-btn {
