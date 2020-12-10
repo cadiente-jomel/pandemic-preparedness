@@ -213,7 +213,11 @@
            <!-- Button trigger modal -->
   
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <?php
+    include('./add_record.php');
+  
+  ?>
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -282,14 +286,14 @@
                        
                         </select>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- ? covid travel histroy and interaction -->
-                <div class="travel-history-container info-container">
-                    <h4 class="mb-5">Travel Histroy</h4>
-                    <div class="travel-detail">
+                <!-- <div class="travel-history-container info-container"> -->
+                    <!-- <h4 class="mb-5">Travel Histroy</h4> -->
+                    <!-- <div class="travel-detail"> -->
                         <!-- <input type="date" id="locationwhen1" name="when"> -->
-                        <input type="date"  class="locationwhen" name="when">
+                        <!-- <input type="date"  class="locationwhen" name="when">
                         <label class="custom-field one">
                             <input type="text" required/>
                             <span class="placeholder">Location</span>
@@ -304,9 +308,9 @@
 
                 <div class="interact-history-container info-container">
                     <h4 class="mb-5">Person Interacted</h4>
-                    <div class="interact-detail">
+                    <div class="interact-detail"> -->
                         <!-- <input type="date" id="locationwhen1" name="when"> -->
-                        <input type="date"  class="interact-locationwhen" name="when">
+                        <!-- <input type="date"  class="interact-locationwhen" name="when">
                         <label class="custom-field one">
                             <input type="text" required/>
                             <span class="placeholder">Location</span>
@@ -325,7 +329,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
             <!-- ? end of modal -->
         </div>
 

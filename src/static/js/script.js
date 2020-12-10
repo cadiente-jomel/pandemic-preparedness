@@ -221,14 +221,138 @@ then close all select boxes:*/
                 });
         });
     });
+
+    const form = document.querySelector('.add-form')
+
+    form.addEventListener('submit', e => {
+        const url = form.attributes.action.textContent;
+        e.preventDefault();
+        // let firstName, lastName, age, occupation, days, covidStatus, 
+        // covidCase, civilStatus;
+        let travelHistroy = [];
+        let contactHistory = [];
+        let firstName = document.querySelector('.first-name').value
+        let lastName = document.querySelector('.last-name').value
+        let age = document.querySelector('.age').value
+        let occupation = document.querySelector('.occupation').value
+        let days = document.querySelector('.days').value
+        let covidStatus = document.querySelector('.covid-status').value
+        let covidCase = document.querySelector('.covid-case').value
+        let civilStatus = document.querySelector('.civil-status').value
+        let address = document.querySelector('.address').value
+        let travelDetail = document.querySelectorAll('.travel-detail')
+        let intractDetail = document.querySelectorAll('.interact-detail')
+        let i = 0;
+        travelDetail.forEach(data => {
+            const loc = document.querySelectorAll('.locationwhen')
+            const tloc = document.querySelectorAll('.travel-location')
+            travelHistroy.push({'travel_date': loc[i].value, 'travel_location': tloc[i].value})        
+            i += 1;
+        })
+        i = 0;
+        intractDetail.forEach(data => {
+            const interactWhen = document.querySelectorAll('.interact-locationwhen')
+            const interactName = document.querySelectorAll('.contact-name')
+            const interactLo = document.querySelectorAll('.contact-location')
+            contactHistory.push({'interact_date': interactWhen[i].value, 'interact_name': interactName[i].value, 'interact_location': interactLo[i].value})        
+            i += 1;
+        })
+
+        let data = {
+            first_name: firstName, 
+            last_name: lastName,
+            user_age: parseInt(age),
+            user_occupation: occupation,
+            user_address: address,
+            quarantine_days: parseInt(days),
+            covid_status: covidStatus,
+            covid_case: covidCase,
+            civil_status: civilStatus,
+            travel_history: travelHistroy,
+            contact_history: contactHistory
+        }
+        // let firstName = document.querySelector('')
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data)
+        }).then((res) => {
+            const tableRecord = document.querySelector('.table-record');
+            
+            // console.log(res);
+            // console.log(JSON.parse(res));
+            // !!! bug!!!
+            console.log(res.json());
+
+            /* 
+            <tr class="table-row">
+                            <td class="table-data">Jomel Cadiente</td>
+                            <td class="table-data">20</td>
+                            <td class="table-data">Purok 5</td>
+                            <td class="table-data"><i class="negative fas fa-times-circle"></i></td>
+                            <td class="table-data"><a href="#"><i class="far fa-edit"></i></a> | <a href="#"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+            */
+
+            const tableRow = document.createElement('tr');
+            tableRow.classList.add('table-row');
+            tableRecord.appendChild(tableRow);
+            const fullName = document.createElement('td');
+            fullName.classList.add('table-data')
+            fullName.textContent = `${firstName}  ${lastName}`;
+            const rowAge = document.createElement('td');
+            rowAge.classList.add('table-data');
+            rowAge.textContent = age;
+            const address = document.createElement('td')
+            address.classList.add('table-data');
+            const status = document.createElement('td')
+            status.classList.add('table-data')
+            const icon = document.createElement('i');
+            if (covidStatus !== 'Negative') {
+                icon.classList.add('positive');
+                icon.classList.add('fas');
+                icon.classList.add('fa-check-circle')
+                status.appendChild(icon)
+            } else {
+                icon.classList.add('positive');
+                icon.classList.add('fas');
+                icon.classList.add('fa-times-circle')
+                status.appendChild(icon)
+            }
+
+            const action = document.createElement('td');
+            action.classList.add('table-data');
+            const anchor  = document.createElement('a');
+            action.appendChild(anchor);
+            const edit = document.createElement('i');
+            const deleteRow = document.createElement('i');
+            edit.classList.add('far');
+            edit.classList.add('fa-edit');
+            deleteRow.classList.add('fas');
+            deleteRow.classList.add('fa-trash');
+
+            anchor.appendChild(edit);
+            anchor.appendChild(deleteRow);
+
+            tableRow.appendChild(fullName);
+            tableRow.appendChild(rowAge);
+            tableRow.appendChild(address);
+            tableRow.appendChild(status);
+            tableRow.appendChild(action);
+
+
+        }).catch((err) => {
+            console.log(err)
+        })
+        
+    })
 })();
 
 function more() {
     const travelHistory = document.querySelector('.travel-history-container');
     travelHistory.innerHTML += ` <div class="travel-detail">
-    <input type="date" class="locationwhen" name="when">
+    <input type="date" class="locationwhen" name="travel-when">
     <label class="custom-field one">
-        <input type="text" required/>
+        <input class="travel-location" type="text" name="travel-location" required/>
         <span class="placeholder">Location</span>
     </label>
     </div>
@@ -238,9 +362,13 @@ function more() {
 function interactMore() {
     const travelHistory = document.querySelector('.interact-history-container');
     travelHistory.innerHTML += ` <div class="interact-detail">
-    <input type="date" class="interact-locationwhen" name="when">
+    <input type="date" class="interact-locationwhen" name="contact-when">
     <label class="custom-field one">
-        <input type="text" required/>
+        <input class="contact-name" name="contact-name" type="text" required/>
+        <span class="placeholder">Person Name</span>
+    </label>
+    <label class="custom-field one">
+        <input class="contact-location" type="text" name="contact-location" required/>
         <span class="placeholder">Location</span>
     </label>
     </div>

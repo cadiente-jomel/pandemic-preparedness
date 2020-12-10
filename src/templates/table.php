@@ -1,5 +1,5 @@
 
-<table>
+<table class="table-record">
     <tr class="table-row" id="table-header">
         <th class="table-header">ID</th>
         <th class="table-header">Full name</th>
