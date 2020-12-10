@@ -106,7 +106,8 @@
                             <div class="profile-selected selected">View Travel History</div>
                             
 
-                            <div class="options-container profile-options-container">
+                            <!-- <div class="options-container profile-options-container"> -->
+                            <!-- <p>Record for this person not found...</p>
                                 <div class="t-option option">
                                     <div class="option-left">
                                         <p>Dec 07, 2020</p>
@@ -132,15 +133,21 @@
                                     <div class="option-right">
                                         <p>Barangay 1 San Mateo, Isabela</p>
                                     </div>
-                                </div>
-
-                            </div>
+                                </div> -->
+                            <?php 
+                                include('./travel_user.php');
+                            ?>
+                            <!-- </div> -->
                         </div>
                         <div class="br profile-select-box select-box">
                             <div class="profile-selected selected">View Person Interacted</div>
                             
+                            <?php 
+                            
+                                include('./contact_user.php');
+                            ?>
 
-                            <div class="options-container profile-options-container 2">
+                            <!-- <div class="options-container profile-options-container">
                                 <div class="interact-option">
                                     <div class="interact-option-left">
                                         <p>Dec 07, 2020</p>
@@ -178,7 +185,7 @@
                                     </div>
                                 </div>
 
-                            </div>
+                            </div> -->
                         </div>
                         <div class="citizen-profile-information">
                         <?php
