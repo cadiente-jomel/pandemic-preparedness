@@ -52,7 +52,7 @@ if(mysqli_query($conn, $covid)) {
 }
 
 
-$returnarr[] = array("new_id" => $last_id);
+$returnarr[] = array("new_id" => $last_id, "travel" => $data->travel_history, "contact" => $data->contact_history);
 echo json_encode($returnarr);
 mysqli_close($conn);
 

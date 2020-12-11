@@ -7,6 +7,7 @@ if (!$conn) {
 
 $json = file_get_contents('php://input');
 $data = json_decode($json);
+// echo $data;
 
 $sql = "SELECT * FROM users WHERE id={$data->id}";
 $result = mysqli_query($conn, $sql);
@@ -21,6 +22,7 @@ $last_name = $row['last_name'];
 $age = $row['age'];
 $occupation = $row['occupation'];
 $civil_status = $row['civil_status'];
+$address = $row['address'];
 $travel_data = array();
 $contact_data = array();
 
@@ -67,6 +69,7 @@ while($row1 = mysqli_fetch_assoc($covidResults)){
         "covid_status" => $covid_status,
         "contact_data" => $contact_data,
         "travel_data" => $travel_data,
+        "address" => $address,
         );
     }
 

@@ -30,6 +30,7 @@
     --warning-bg-color: #DC3545;
     --warning-bg-color-lighter: #d3332d;
     --title-font-weight: 900;
+    --text-font-weight: 700;
     --default-font-family: 'Roboto', sans-serif;
     --btn-positive: #4bb543;
     --btn-darker: #343A40;
@@ -98,7 +99,7 @@ body {
 
 
 .primary-btn, .secondary-btn, .travel-record-more, .interact-record-more {
-    font-weight: 700;
+    font-weight: var(--text-font-weight);
     padding: var(--lg-padding);
     /* font-size: var(--primary-font-size) */
     border-radius: var(--base-border);
@@ -143,7 +144,7 @@ body {
 }
 
 .btn-edit:hover i, .btn-trash:hover i {
-    font-weight: 700;
+    font-weight: var(--text-font-weight);
     color: var(--primary-color);
 }
 .btn-trash:focus {
@@ -203,6 +204,17 @@ body {
 
 .navbar-bg {
     background-color: var(--primary-color);
+}
+
+
+.previous, .previous-value {
+    font-weight: var(--text-font-weight);
+    font-size: var(--subtitle-secondary-font-size);
+    color: var(--subtitle-text-color);
+}
+
+.text-hide {
+    display: none;
 }
 
 /* end of bootstrap class override */

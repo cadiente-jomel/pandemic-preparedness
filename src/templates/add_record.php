@@ -42,7 +42,8 @@
                         <input class="days" type="number" name="days" required/>
                         <span class="placeholder">No of days of Quarantine</span>
                     </label>
-                    <div class="custom-select" style="width:100%;">
+                    <!--<div class="custom-select" style="width:100%;">
+                    <span class="previous text-hide">Previous data recorded: <span class="previous-value">Nah</span></span> -->
                         <select name="covid-status"
                         class="covid-status">
                           <option value="NA">Covid Status:</option>
@@ -51,11 +52,12 @@
                           <option value="Under">Under Investigation</option>
                        
                         </select>
-                    </div>
+                    <!-- </div> -->
                     
                     
                     
-                    <div  class="custom-select" style="width:100%;">
+                    <!-- <div  class="custom-select" style="width:100%;">
+                    <span class="previous text-hide">Previous data recorded: <span class="previous-value">Nah</span></span> -->
                         <select name="covid-case"
                         class="covid-case">
                           <option value="NA">Covid case:</option>
@@ -63,8 +65,9 @@
                           <option value="Symptomatic">Symptomatic</option>
                        
                         </select>
-                    </div>
-                    <div class="custom-select" style="width:100%;">
+                    <!-- </div> -->
+                    <!-- <div class="custom-select" style="width:100%;">
+                    <span class="previous text-hide">Previous data recorded: <span class="previous-value">Nah</span></span> -->
                         <select name="civil-status" class="civil-status" >
                           <option value="NA">Civil Status:</option>
                           <option value="Married">Married</option>
@@ -72,20 +75,20 @@
                           <option value="Single">Single</option>
                        
                         </select>
-                    </div>
+                    <!-- </div> -->
                 </div>
 
                 <!-- ? covid travel histroy and interaction -->
                 <div class="travel-history-container info-container">
                     <h4 class="mb-5">Travel Histroy</h4>
-                    <div class="travel-detail">
-                        <!-- <input type="date" id="locationwhen1" name="when"> -->
+                    <!-- <div class="travel-detail">
+                        <input type="date" id="locationwhen1" name="when">
                         <input type="date"  class="locationwhen" name="travel-when">
                         <label class="custom-field one">
                             <input class="travel-location" type="text" name="travel-location" required/>
                             <span class="placeholder" >Location</span>
                         </label>
-                    </div>
+                    </div> -->
 
                     <div class="travel-record-more" onclick="more()">
                         <i class="fas fa-plus"></i>
@@ -95,18 +98,18 @@
 
                 <div class="interact-history-container info-container">
                     <h4 class="mb-5">Person Interacted</h4>
-                    <div class="interact-detail">
-                        <!-- <input type="date" id="locationwhen1" name="when"> -->
+                    <!-- <div class="interact-detail">
+                        <input type="date" id="locationwhen1" name="when">
                         <input type="date"  class="interact-locationwhen" name="contact-when">
                         <label class="custom-field one">
                             <input class="contact-name" name="contact-name" type="text" required/>
-                            <span class="placeholder">Person Name</span>
+                            <span class="placeholder">Person's Name</span>
                         </label>
                         <label class="custom-field one">
                             <input class="contact-location" name="contact-location" type="text" required/>
                             <span class="placeholder">Location</span>
                         </label>
-                    </div>
+                    </div> -->
 
                     <div class="interact-record-more" onclick="interactMore()">
                         <i class="fas fa-plus"></i>
