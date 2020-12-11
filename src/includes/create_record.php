@@ -23,7 +23,7 @@ if(mysqli_query($conn, $covid)) {
         $travel = "INSERT INTO travel_history (user_travel, location, travel_date) VALUES($last_id_covid, '{$index->travel_location}', '{$index->travel_date}')";
 
         if (mysqli_query($conn, $travel) ){
-            echo 'Sucessfully added new record to travel history table';
+            // echo 'Sucessfully added new record to travel history table';
         } else {
             echo "Error: " . $travel . "<br>" . mysqli_error($conn);
         }
@@ -35,25 +35,25 @@ if(mysqli_query($conn, $covid)) {
         $contact = "INSERT INTO contact_trace (user_case_id, person_name, contact_date, address) VALUES($last_id_covid, '{$contact_index->interact_name}', '{$contact_index->interact_date}', '{$contact_index->interact_location}')";
 
         if (mysqli_query($conn, $contact) ){
-            echo 'Sucessfully added new record to contact trace table';
+            // echo 'Sucessfully added new record to contact trace table';
         } else {
             echo "Error: " . $contact . "<br>" . mysqli_error($conn);
         }
         
     }
-    echo "Successfully added new record to covid table";
+    // echo "Successfully added new record to covid table";
 } else {
     echo "Error: " . $covid . "<br>" . mysqli_error($conn);
 }
 
-echo "New record created successfully ". $last_id;
-$returnarr[] = array("new_id" => $last_id);
-echo json_encode($returnarr);
+// echo "New record created successfully ". $last_id;
 } else {
-echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
 
+$returnarr[] = array("new_id" => $last_id);
+echo json_encode($returnarr);
 mysqli_close($conn);
 
 

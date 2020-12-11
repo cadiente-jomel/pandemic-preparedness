@@ -33,7 +33,7 @@ if (mysqli_num_rows($results) > 0) {
         }
     }
 
-    echo '<td class="table-data"><a href="#"><i class="far fa-edit"></i></a> | <a href="#"><i class="fas fa-trash"></i></a></td>';
+    echo '<td class="table-data"><a href="../includes/update_record.php" class="btn-edit" href="#"><i class="far fa-edit"></i></a>  <button class="btn-trash" data-bs-toggle="modal" data-bs-target="#confirm-modal"><i class="fas fa-trash"></i></button></td>';
     echo '</tr>';
         // <tr class="table-row"><td class="table-data">'. $row[] .'</td>
     }

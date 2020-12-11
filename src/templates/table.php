@@ -14,6 +14,23 @@
     
     
     ?>
+    <div class="modal modal-confirm" id="confirm-modal"tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Row</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Deleting this record will result to data lost are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">Cancel</button>
+        <a href="../includes/delete_record.php" type="button" class="btn btn-primary btn-confirm-delete">Confirm</a>
+      </div>
+    </div>
+  </div>
+</div>
     <!-- <tr class="table-row">
     //     <td class="table-data">Jomel Cadiente</td>
     //     <td class="table-data">20</td>

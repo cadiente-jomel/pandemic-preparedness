@@ -113,9 +113,10 @@ body {
 }
 
 .travel-record-more, .interact-record-more {
+    padding: 16px;
     background-color: var(--btn-positive);
     position: absolute;
-    top: 0;
+    top: -10px;
     right: 0;
     width: 50px;
     heigth: 50px;
@@ -135,6 +136,26 @@ body {
     color: var(--warning-bg-color);
     pointer-events: none;
 }
+
+.btn-trash {
+    border: none;
+    background-color: transparent;
+}
+
+.btn-edit:hover i, .btn-trash:hover i {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+.btn-trash:focus {
+    outline: none;
+}
+
+.btn-edit {
+    border-right: 1px solid black;
+    padding-right: var(--base-margin-lg);
+    margin-right: var(--base-margin-lg);
+}
+
 
 .secondary-btn {
     background-color: var(--warning-bg-color);

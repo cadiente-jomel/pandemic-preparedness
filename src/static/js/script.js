@@ -138,97 +138,94 @@ let controls = (function () {
 then close all select boxes:*/
     document.addEventListener('click', closeAllSelect);
 
-    const tableRow = document.querySelectorAll('.table-click');
+    const activateEventListener = () => {
+        const tableRow = document.querySelectorAll('.table-click');
 
-    tableRow.forEach((row) => {
-        row.addEventListener('click', () => {
-            let curr_id = parseInt(row.childNodes[0].value);
-            let userId = { userId: curr_id };
-            // console.log(JSON.stringify(userId))
-            fetch('.././includes/detailed.php', {
-                method: 'POST',
-                body: JSON.stringify(userId),
-            })
-                .then((res) => {
-                    return res.json();
+        tableRow.forEach((row) => {
+            row.addEventListener('click', () => {
+                let curr_id = parseInt(row.childNodes[0].value);
+                let userId = { userId: curr_id };
+                // console.log(JSON.stringify(userId))
+                fetch('.././includes/detailed.php', {
+                    method: 'POST',
+                    body: JSON.stringify(userId),
                 })
-                .then((data) => {
-                    try {
-                        let profileRemove = document.querySelector(
-                            '.citizen-personal-info'
+                    .then((res) => {
+                        return res.json();
+                    })
+                    .then((data) => {
+                        try {
+                            let profileRemove = document.querySelector(
+                                '.citizen-personal-info'
+                            );
+                            profileRemove.remove();
+                            const travelData = document.querySelectorAll('.travel-data');
+                            travelData.forEach(el => {
+                                el.remove();
+                            })
+
+                            const contactData = document.querySelectorAll('.contact-data');
+                            contactData.forEach(el => {
+                                el.remove();
+                            })
+                        } catch {}
+                        const profile = document.querySelector(
+                            '.citizen-profile-information'
                         );
-                        profileRemove.remove();
-                        const travelData = document.querySelectorAll('.travel-data');
-                        travelData.forEach(el => {
-                          el.remove();
-                        })
+                        const travelRecord = document.querySelector(
+                            '.travel-record'
+                        );
+                        const contactRecord = document.querySelector('.contact-record');
 
-                        const contactData = document.querySelectorAll('.contact-data');
-                        contactData.forEach(el => {
-                          el.remove();
-                        })
-                    } catch {}
-                    const profile = document.querySelector(
-                        '.citizen-profile-information'
-                    );
-                    const travelRecord = document.querySelector(
-                        '.travel-record'
-                    );
-                    const contactRecord = document.querySelector('.contact-record');
-
-                    
+                        
 
 
-                    profile.innerHTML += `<div class="citizen-personal-info">
-      <ul class="personal-info">
-          <li>First Name: <span clsas="info-first">${data[0].first_name}</span></li>
-          <li>Last Name: <span clsas="info-last">${data[0].last_name}</span></li>
-          <li>Status: <span clsas="info-status">${data[0].covid_status}</span></li>
-          <li>Day of Quarantine: <spa clsas="info-day">${data[0].days} Days</spa></li>
-          <li>Age: <span clsas="info-age">${data[0].age}</span></li>
-          <li>Occupation: <span clsas="info-occupation">${data[0].occupation}</span> </li>
-          <li>Civil Status: <span clsas="info-civil">${data[0].civil_status}</span></li>
-          <li>Covid Case: <span clsas="info-case">${data[0].covid_case}</span></li>
-      </ul>
-  </div>`;
-        data[0].travel_data.forEach(record => {
-          travelRecord.innerHTML += `<div class="t-option option travel-data">
-                                        <div class="option-left">
-                                            <p>${record.travel_date}</p>
-                                        </div>
-                                        <div class="option-right">
-                                            <p>${record.travel_location}</p>
-                                        </div>
-                                      </div>`;
+                        profile.innerHTML += `<div class="citizen-personal-info">
+            <ul class="personal-info">
+                <li>First Name: <span clsas="info-first">${data[0].first_name}</span></li>
+                <li>Last Name: <span clsas="info-last">${data[0].last_name}</span></li>
+                <li>Status: <span clsas="info-status">${data[0].covid_status}</span></li>
+                <li>Day of Quarantine: <spa clsas="info-day">${data[0].days} Days</spa></li>
+                <li>Age: <span clsas="info-age">${data[0].age}</span></li>
+                <li>Occupation: <span clsas="info-occupation">${data[0].occupation}</span> </li>
+                <li>Civil Status: <span clsas="info-civil">${data[0].civil_status}</span></li>
+                <li>Covid Case: <span clsas="info-case">${data[0].covid_case}</span></li>
+            </ul>
+        </div>`;
+            data[0].travel_data.forEach(record => {
+                travelRecord.innerHTML += `<div class="t-option option travel-data">
+                                            <div class="option-left">
+                                                <p>${record.travel_date}</p>
+                                            </div>
+                                            <div class="option-right">
+                                                <p>${record.travel_location}</p>
+                                            </div>
+                                            </div>`;
 
-        })
-
-
-        data[0].contact_data.forEach(record => {
-          contactRecord.innerHTML += `<div class="interact-option contact-data">
-                                        <div class="interact-option-left">
-                                            <p>${record.contact_date}</p>
-                                        </div>
-                                        <div class="interact-option-middle">
-                                            <p>${record.contact_person}</p>
-                                        </div>
-                                        <div class="interact-option-right">
-                                            <p>${record.contact_address}</p>
-                                        </div>
-                                    </div>`
-        })
-                    console.log(data);
-                });
+            })
+            data[0].contact_data.forEach(record => {
+                contactRecord.innerHTML += `<div class="interact-option contact-data">
+                                            <div class="interact-option-left">
+                                                <p>${record.contact_date}</p>
+                                            </div>
+                                            <div class="interact-option-middle">
+                                                <p>${record.contact_person}</p>
+                                            </div>
+                                            <div class="interact-option-right">
+                                                <p>${record.contact_address}</p>
+                                            </div>
+                                        </div>`
+            })
+            // console.log(data);
+                    });
+            });
         });
-    });
-
+    }
+    activateEventListener();
     const form = document.querySelector('.add-form')
-
     form.addEventListener('submit', e => {
         const url = form.attributes.action.textContent;
         e.preventDefault();
-        // let firstName, lastName, age, occupation, days, covidStatus, 
-        // covidCase, civilStatus;
         let travelHistroy = [];
         let contactHistory = [];
         let firstName = document.querySelector('.first-name').value
@@ -257,7 +254,6 @@ then close all select boxes:*/
             contactHistory.push({'interact_date': interactWhen[i].value, 'interact_name': interactName[i].value, 'interact_location': interactLo[i].value})        
             i += 1;
         })
-
         let data = {
             first_name: firstName, 
             last_name: lastName,
@@ -271,39 +267,39 @@ then close all select boxes:*/
             travel_history: travelHistroy,
             contact_history: contactHistory
         }
-        // let firstName = document.querySelector('')
         fetch(url, {
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         }).then((res) => {
-            const tableRecord = document.querySelector('.table-record');
+            return res.json();
+        })
+        .then((data) => {
             
-            // console.log(res);
-            // console.log(JSON.parse(res));
-            // !!! bug!!!
-            console.log(res.json());
-
-            /* 
-            <tr class="table-row">
-                            <td class="table-data">Jomel Cadiente</td>
-                            <td class="table-data">20</td>
-                            <td class="table-data">Purok 5</td>
-                            <td class="table-data"><i class="negative fas fa-times-circle"></i></td>
-                            <td class="table-data"><a href="#"><i class="far fa-edit"></i></a> | <a href="#"><i class="fas fa-trash"></i></a></td>
-                        </tr>
-            */
-
+            const tableRecord = document.querySelector('.table-record');
+            console.log(data);
             const tableRow = document.createElement('tr');
             tableRow.classList.add('table-row');
+            tableRow.classList.add('table-click');
             tableRecord.appendChild(tableRow);
+            const inputHidden = document.createElement('input')
+            inputHidden.type = 'hidden';
+            inputHidden.name = 'userId';
+            inputHidden.value = data[0].new_id;
+            const rowID = document.createElement('td');
+            rowID.classList.add('table-data');
+            rowID.textContent = data[0].new_id;
             const fullName = document.createElement('td');
-            fullName.classList.add('table-data')
+            fullName.classList.add('table-data');
             fullName.textContent = `${firstName}  ${lastName}`;
             const rowAge = document.createElement('td');
             rowAge.classList.add('table-data');
             rowAge.textContent = age;
-            const address = document.createElement('td')
-            address.classList.add('table-data');
+            const rowAddress = document.createElement('td')
+            rowAddress.classList.add('table-data');
+            rowAddress.textContent = address;
             const status = document.createElement('td')
             status.classList.add('table-data')
             const icon = document.createElement('i');
@@ -321,8 +317,15 @@ then close all select boxes:*/
 
             const action = document.createElement('td');
             action.classList.add('table-data');
-            const anchor  = document.createElement('a');
-            action.appendChild(anchor);
+            const anchorEdit  = document.createElement('a');
+            anchorEdit.classList.add('btn-edit');
+            const btnDelete = document.createElement('button');
+            btnDelete.classList.add('btn-trash')
+            // data-bs-toggle="modal" data-bs-target="#confirm-modal"
+            btnDelete.setAttribute('data-bs-toggle', 'modal');
+            btnDelete.setAttribute('data-bs-target', '#confirm-modal')
+            action.appendChild(anchorEdit);
+            action.appendChild(btnDelete)
             const edit = document.createElement('i');
             const deleteRow = document.createElement('i');
             edit.classList.add('far');
@@ -330,21 +333,110 @@ then close all select boxes:*/
             deleteRow.classList.add('fas');
             deleteRow.classList.add('fa-trash');
 
-            anchor.appendChild(edit);
-            anchor.appendChild(deleteRow);
-
+            anchorEdit.appendChild(edit);
+            btnDelete.appendChild(deleteRow);
+            tableRow.appendChild(inputHidden);
+            tableRow.appendChild(rowID);
             tableRow.appendChild(fullName);
             tableRow.appendChild(rowAge);
-            tableRow.appendChild(address);
+            tableRow.appendChild(rowAddress);
             tableRow.appendChild(status);
             tableRow.appendChild(action);
-
-
-        }).catch((err) => {
+            activateEventListener();
+        })
+        .catch((err) => {
             console.log(err)
         })
         
     })
+
+
+    
+
+
+    const addBtn = document.querySelector('.add-record');
+    addBtn.addEventListener('click', () => {
+        resetInput();
+    })
+    const resetInput = () => {
+        let cs = document.querySelector('.covid-status')
+        let ccase = document.querySelector('.covid-case');
+        let cstatus = document.querySelector('.civil-status');
+        document.querySelector('.first-name').value = "";
+        document.querySelector('.last-name').value = "";
+        document.querySelector('.age').value = "";
+        document.querySelector('.occupation').value = "";
+        document.querySelector('.days').value = "";
+        // cs.textContent = "Covid Status:";
+        // cs.value = "NA";
+        // ccase.textContent =  "Covid Case:";
+        // ccase.value = "NA";
+        // cstatus.textContent = "Covid Status";
+        // cstatus.value = "NA";
+        document.querySelector('.address').value = "";
+    }
+
+    let curr_url, curr_row;
+    const btnTrash = document.querySelectorAll('.btn-trash');
+    btnTrash.forEach(data => {
+        data.addEventListener('click', () => {
+            curr_url = data.parentElement.parentElement.childNodes[0].value
+            curr_row = data.parentElement.parentElement
+            console.log(curr_row);
+        })
+    })
+
+    const editBtn = document.querySelectorAll('.btn-edit');
+    
+    editBtn.forEach(btn => {
+        btn.addEventListener('click', e => {
+            curr_url = btn.parentElement.parentElement.childNodes[0].value
+            curr_row = btn.parentElement.parentElement
+            // alert(curr_url)
+            e.preventDefault();
+
+            dataEdit = {
+                id: curr_url,
+            }
+            let url = btn.attributes.href.textContent;
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataEdit),
+            })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                addBtn.click();
+            })
+        })
+    })
+
+    const btnDeleteConfirm = document.querySelector('.btn-confirm-delete');
+    btnDeleteConfirm.addEventListener('click', e => {
+        e.preventDefault();
+        const url = btnDeleteConfirm.attributes.href.textContent;
+        deleteData = {
+            id: curr_url,
+        }
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(deleteData),
+        }).then(() => {
+            const closeModal = document.querySelector('.btn-cancel');
+            closeModal.click();
+            curr_row.remove();
+        }).catch((err) => {
+            console.log(err);
+        })
+    })
+    
 })();
 
 function more() {

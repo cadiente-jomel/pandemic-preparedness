@@ -12,7 +12,7 @@
 
                 <div class="header-action-container">
                     <div class="header-action">
-                        <button class="primary-btn mr-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button class="primary-btn mr-3 add-record" data-bs-toggle="modal" data-bs-target="#add-modal">
                             Add Record
                             <i class="fas fa-user-plus"></i>
                         </button>
@@ -332,6 +332,8 @@
   </div> -->
             <!-- ? end of modal -->
         </div>
+
+        
 
 <?php 
 
