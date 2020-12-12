@@ -27,8 +27,9 @@
                                         class="radio"
                                         id="automobiles"
                                         name="category"
+                                        value="patience"
                                     />
-                                    <label for="automobiles"
+                                    <label class="select-label" for="automobiles"
                                         >Patience Under Investigation</label
                                     >
                                 </div>
@@ -39,15 +40,26 @@
                                         class="radio"
                                         id="film"
                                         name="category"
+                                        value="under"
                                     />
-                                    <label for="film">Recent Record</label>
+                                    <label class="select-label" for="film">Patience Under < 18</label>
+                                </div>
+                                <div class="option">
+                                    <input
+                                        type="radio"
+                                        class="radio"
+                                        id="film"
+                                        name="category"
+                                        value="legal"
+                                    />
+                                    <label class="select-label" for="film">Patience Above > 18</label>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="search-container">
-                        <form class="search-form" action="" method="GET">
+                        <form class="search-form" action="../includes/search.php" method="POST">
                             <div class="search-outer">
                                 <input
                                     type="text"

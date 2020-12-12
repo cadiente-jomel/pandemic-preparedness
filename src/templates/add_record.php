@@ -49,7 +49,7 @@
                           <option value="NA">Covid Status:</option>
                           <option value="Positive">Positive</option>
                           <option value="Negative">Negative</option>
-                          <option value="Under">Under Investigation</option>
+                          <option value="Under Investigation">Under Investigation</option>
                        
                         </select>
                     <!-- </div> -->

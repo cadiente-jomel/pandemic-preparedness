@@ -9,6 +9,112 @@ let controls = (function () {
     const optionsContainer = document.querySelector('.options-container');
 
     const optionsList = document.querySelectorAll('.option');
+    const categoryList = document.querySelectorAll('.radio');
+    const searchForm = document.querySelector('.search-form');
+    
+
+
+    searchForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const url = searchForm.attributes.action.textContent;
+        let searchVal = document.getElementById('search-value');
+        data = {
+            val: searchVal.value,
+        }
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).then(res=> {
+            
+            return res.json()
+        })
+        .then(results=> {
+            generateRow(results)
+        })
+    })
+
+    const generateRow = (results) => {
+        // console.log(results[0])
+        const tableRowPrev = document.querySelectorAll('.table-row-data');
+        tableRowPrev.forEach(el => {
+            el.remove();
+        })
+
+
+        const tableRecord = document.querySelector('.table-record');
+        results.forEach(data => {
+            console.log(data);
+            const tableRow = document.createElement('tr');
+            tableRow.classList.add('table-row');
+            tableRow.classList.add('table-click');
+            tableRow.classList.add('table-row-data');
+            tableRecord.appendChild(tableRow);
+            const inputHidden = document.createElement('input')
+            inputHidden.type = 'hidden';
+            inputHidden.name = 'userId';
+            inputHidden.value = data.new_id;
+            const rowID = document.createElement('td');
+            rowID.classList.add('table-data');
+            rowID.textContent = data.new_id;
+            const fullName = document.createElement('td');
+            fullName.classList.add('table-data');
+            fullName.textContent = `${data.first_name} ${data.last_name}`;
+            const rowAge = document.createElement('td');
+            rowAge.classList.add('table-data');
+            rowAge.textContent = data.age;
+            const rowAddress = document.createElement('td')
+            rowAddress.classList.add('table-data');
+            rowAddress.textContent =    data.address;
+            const status = document.createElement('td')
+            status.classList.add('table-data')
+            const icon = document.createElement('i');
+            if (data.covid_status !== 'Negative') {
+                icon.classList.add('positive');
+                icon.classList.add('fas');
+                icon.classList.add('fa-check-circle')
+                status.appendChild(icon)
+            } else {
+                icon.classList.add('negative');
+                icon.classList.add('fas');
+                icon.classList.add('fa-times-circle')
+                status.appendChild(icon)
+            }
+
+            const action = document.createElement('td');
+            action.classList.add('table-data');
+            const anchorEdit  = document.createElement('a');
+            anchorEdit.classList.add('btn-edit');
+            const btnDelete = document.createElement('button');
+            btnDelete.classList.add('btn-trash')
+            // data-bs-toggle="modal" data-bs-target="#confirm-modal"
+            btnDelete.setAttribute('data-bs-toggle', 'modal');
+            btnDelete.setAttribute('data-bs-target', '#confirm-modal')
+            action.appendChild(anchorEdit);
+            action.appendChild(btnDelete)
+            const edit = document.createElement('i');
+            const deleteRow = document.createElement('i');
+            edit.classList.add('far');
+            edit.classList.add('fa-edit');
+            deleteRow.classList.add('fas');
+            deleteRow.classList.add('fa-trash');
+
+            anchorEdit.appendChild(edit);
+            btnDelete.appendChild(deleteRow);
+            tableRow.appendChild(inputHidden);
+            tableRow.appendChild(rowID);
+            tableRow.appendChild(fullName);
+            tableRow.appendChild(rowAge);
+            tableRow.appendChild(rowAddress);
+            tableRow.appendChild(status);
+            tableRow.appendChild(action);
+
+        })
+        activateEventListener();
+    }
+    
     // let i = 0;
     profileSelectedList.forEach((profileSelected) => {
         profileSelected.addEventListener('click', () => {
@@ -25,12 +131,28 @@ let controls = (function () {
 
     selected.addEventListener('click', () => {
         optionsContainer.classList.toggle('active');
+        // alert('selected')
     });
-
     optionsList.forEach((o) => {
-        o.addEventListener('click', () => {
+        o.addEventListener('click', (e) => {
+            e.preventDefault();
             selected.innerHTML = o.querySelector('label').innerHTML;
             optionsContainer.classList.remove('active');
+            let query = {
+                val: o.childNodes[1].value,
+            }
+            
+            fetch('../includes/search.php', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(query)
+            }).then(res => {
+                return res.json()
+            }).then(results => {
+                generateRow(results);
+            })
         });
     });
 
@@ -292,6 +414,7 @@ let controls = (function () {
             const tableRow = document.createElement('tr');
             tableRow.classList.add('table-row');
             tableRow.classList.add('table-click');
+            tableRow.classList.add('table-row-data');
             tableRecord.appendChild(tableRow);
             const inputHidden = document.createElement('input')
             inputHidden.type = 'hidden';

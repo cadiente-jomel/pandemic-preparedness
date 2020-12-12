@@ -18,7 +18,7 @@ if (mysqli_num_rows($results) > 0) {
                         </tr>
         */
 
-        echo '<tr class="table-row table-click"><input type="hidden" name="userId" value="'.$row['id'].'"><td class="table-data table-id">'. $row['id'] .'</td><td class="table-data">'. $row['first_name'] . ' '. $row['last_name'] .'</td>
+        echo '<tr class="table-row table-click table-row-data"><input type="hidden" name="userId" value="'.$row['id'].'"><td class="table-data table-id">'. $row['id'] .'</td><td class="table-data">'. $row['first_name'] . ' '. $row['last_name'] .'</td>
         <td class="table-data">'. $row['age'] .'</td>
         <td class="table-data">'. $row['address'] .'</td>';
     $status =  mysqli_query($conn, "SELECT * FROM covid JOIN users ON users.id=covid.user_id WHERE users.id={$row['id']}");

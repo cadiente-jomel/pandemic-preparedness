@@ -59,48 +59,75 @@ if(mysqli_query($conn, $covid)) {
     }
     if ($flag) {
         $travelIdLength = count($travelId);
+        $totalData = count($travel_json) + 1;
         $i = 0;
+        if($travelIdLength > 0) {
+            $is_true = true;
+        } else {
+            $is_true = false;
+            $totalData = count($travel_json) - 1;
+        }
                 #1st(ended)  2nd(ended) 3rd
         # assuming <jomel>, <benjie>, <aira>;
-        foreach ($travel_json as $index) {
+        // foreach ($travel_json as $index) {
             # assuming two  values.
-            foreach ($travelId as $curr_travel) {
-                // $new_id = $curr_travel;
-                       #2             #2
-                    if(count($travelId) < count($travel_json)-1) {
-                        $travel = "UPDATE travel_history SET location='{$index->travel_location}', travel_date='{$index->travel_date}' WHERE user_travel=$curr_travel";
-                
+            // foreach ($travelId as $curr_travel) {
+                if($is_true) {
+                    for ($j=0; $j < $travelIdLength; $j++) { 
+                        $travel = "UPDATE travel_history SET location='{$travel_json[$j]->travel_location}', travel_date='{$travel_json[$j]->travel_date}' WHERE user_travel=$travelId[$j]";
+                    
                         if (mysqli_query($conn, $travel) ){
                             // echo 'Sucessfully added new record to travel trace table';
                             $i += 1;
                             // continue;
                         } else {
-                            $travel = "INSERT INTO travel_history (user_travel, location, travel_date) VALUES($covidId, '{$index->travel_location}', '{$index->travel_date}')";
+    
+                            echo 'trouble updating travel-history --> check out the problem';
+                        //     $travel = "INSERT INTO travel_history (user_travel, location, travel_date) VALUES($covidId, '{$index->travel_location}', '{$index->travel_date}')";
         
-                        if (mysqli_query($conn, $travel) ){
-                            $i += 1;
-                            // continue;
-                            // echo 'Sucessfully added new record to travel trace table';
-                        } else {
-                            echo "Error: " . $travel . "<br>" . mysqli_error($conn);
-                        }
-                        }
-                    } else {
-                        $travel = "INSERT INTO travel_history (user_travel, location, travel_date) VALUES($covidId, '{$index->travel_location}', '{$index->travel_date}')";
-        
-                        if (mysqli_query($conn, $travel) ){
-                            $i += 1;
-                            // continue;
-                            // echo 'Sucessfully added new record to travel trace table';
-                        } else {
-                            echo "Error: " . $travel . "<br>" . mysqli_error($conn);
+                        // if (mysqli_query($conn, $travel) ){
+                        //     $i += 1;
+                        //     // continue;
+                        //     // echo 'Sucessfully added new record to travel trace table';
+                        // } else {
+                        //     echo "Error: " . $travel . "<br>" . mysqli_error($conn);
+                        // }
                         }
                     }
-                    break;
+                    $is_true = false;
+                }
+                // $new_id = $curr_travel;
+
+                for ($pos=$i; $pos < $totalData; $pos++) { 
+                    $travel = "INSERT INTO travel_history (user_travel, location, travel_date) VALUES($covidId, '{$travel_json[$pos]->travel_location}', '{$travel_json[$pos]->travel_date}')";
+        
+                    if (mysqli_query($conn, $travel) ){
+                        // continue;
+                        // echo 'Sucessfully added new record to travel trace table';
+                    } else {
+                        echo "Error: " . $travel . "<br>" . mysqli_error($conn);
+                    }
+                    $i += 1;
+                }
+                       #2             #2
+                    // if(count($travelId) < count($travel_json)-1) {
+                       
+                    // } else {
+                    //     $travel = "INSERT INTO travel_history (user_travel, location, travel_date) VALUES($covidId, '{$index->travel_location}', '{$index->travel_date}')";
+        
+                    //     if (mysqli_query($conn, $travel) ){
+                    //         $i += 1;
+                    //         // continue;
+                    //         // echo 'Sucessfully added new record to travel trace table';
+                    //     } else {
+                    //         echo "Error: " . $travel . "<br>" . mysqli_error($conn);
+                    //     }
+                    // }
+                    // break;
                 // $new_id += 1;
-            }
-        }
-}
+            // }
+        // }
+    }
     $sqlContact = "SELECT contact_id FROM contact_trace WHERE user_case_id=$covidId";
     $results_travel = mysqli_query($conn, $sqlContact);
     if (mysqli_num_rows($results_travel) > 0) {
@@ -123,48 +150,117 @@ if(mysqli_query($conn, $covid)) {
         $flag = false;
     }
     if($flag) {
-        $new_id;
+        // $new_id;
+        // $i = 0;
+        //         #1st(ended)  2nd(ended) 3rd
+        // # assuming <jomel>, <benjie>, <aira>;
+        // foreach ($contact_json as $contact_index) {
+        //     # assuming two  values.
+        //     foreach ($contactId as $curr_contact) {
+        //         // $new_id = $curr_contact;
+        //                #0             #2
+        //             if($i < count($contact_json)-1) {
+        //                 $contact = "UPDATE contact_trace SET person_name='{$contact_index->interact_name}', contact_date='{$contact_index->interact_date}', address='{$contact_index->interact_location}'  WHERE contact_id=$curr_contact";
+                
+        //                 if (mysqli_query($conn, $contact) ){
+        //                     // echo 'Sucessfully added new record to contact trace table';
+        //                     $i += 1;
+        //                     // continue;
+        //                 } else {
+        //                     $contact = "INSERT INTO contact_trace (user_case_id, person_name, contact_date, address) VALUES($covidId, '{$contact_index->interact_name}', '{$contact_index->interact_date}', '{$contact_index->interact_location}')";
+        
+        //                 if (mysqli_query($conn, $contact) ){
+        //                     $i += 1;
+        //                     // continue;
+        //                     // echo 'Sucessfully added new record to contact trace table';
+        //                 } else {
+        //                     echo "Error: " . $contact . "<br>" . mysqli_error($conn);
+        //                 }
+        //                 }
+        //             } else {
+        //                 $contact = "INSERT INTO contact_trace (user_case_id, person_name, contact_date, address) VALUES($covidId, '{$contact_index->interact_name}', '{$contact_index->interact_date}', '{$contact_index->interact_location}')";
+        
+        //                 if (mysqli_query($conn, $contact) ){
+        //                     $i += 1;
+        //                     // continue;
+        //                     // echo 'Sucessfully added new record to contact trace table';
+        //                 } else {
+        //                     echo "Error: " . $contact . "<br>" . mysqli_error($conn);
+        //                 }
+        //             }
+        //             break;
+        //         // $new_id += 1;
+        //     }
+        // }
+        $contactIdLength = count($contactId);
+        $totalContactData = count($contact_json) + 1;
         $i = 0;
+        if($contactIdLength > 0) {
+            $is_true = true;
+        } else {
+            $is_true = false;
+            $totalContactData = count($contact_json) - 1;
+        }
                 #1st(ended)  2nd(ended) 3rd
         # assuming <jomel>, <benjie>, <aira>;
-        foreach ($contact_json as $contact_index) {
+        // foreach ($contact_json as $contact_index) {
             # assuming two  values.
-            foreach ($contactId as $curr_contact) {
-                // $new_id = $curr_contact;
-                       #0             #2
-                    if($i < count($contact_json)-1) {
-                        $contact = "UPDATE contact_trace SET person_name='{$contact_index->interact_name}', contact_date='{$contact_index->interact_date}', address='{$contact_index->interact_location}'  WHERE contact_id=$curr_contact";
-                
+            // foreach ($travelId as $curr_travel) {
+                if($is_true) {
+                    for ($j=0; $j < $contactIdLength; $j++) { 
+                        $contact = "UPDATE contact_trace SET person_name='{$contact_json[$j]->interact_name}', contact_date='{$contact_json[$j]->interact_date}', address='{$contact_json[$j]->interact_location}'  WHERE contact_id=$contactId[$j]";
+                    
                         if (mysqli_query($conn, $contact) ){
                             // echo 'Sucessfully added new record to contact trace table';
-                            $i += 1;
                             // continue;
                         } else {
-                            $contact = "INSERT INTO contact_trace (user_case_id, person_name, contact_date, address) VALUES($covidId, '{$contact_index->interact_name}', '{$contact_index->interact_date}', '{$contact_index->interact_location}')";
-        
-                        if (mysqli_query($conn, $contact) ){
-                            $i += 1;
-                            // continue;
-                            // echo 'Sucessfully added new record to contact trace table';
-                        } else {
-                            echo "Error: " . $contact . "<br>" . mysqli_error($conn);
+                            
+                            echo 'trouble updating contact-history --> check out the problem';
+                            //     $contact = "INSERT INTO contact_history (user_contact, location, contact_date) VALUES($covidId, '{$contact_index->contact_location}', '{$contact_index->contact_date}')";
+                            
+                            // if (mysqli_query($conn, $contact) ){
+                                //     $i += 1;
+                                //     // continue;
+                                //     // echo 'Sucessfully added new record to contact trace table';
+                                // } else {
+                                    //     echo "Error: " . $contact . "<br>" . mysqli_error($conn);
+                                    // }
                         }
-                        }
-                    } else {
-                        $contact = "INSERT INTO contact_trace (user_case_id, person_name, contact_date, address) VALUES($covidId, '{$contact_index->interact_name}', '{$contact_index->interact_date}', '{$contact_index->interact_location}')";
-        
-                        if (mysqli_query($conn, $contact) ){
-                            $i += 1;
-                            // continue;
-                            // echo 'Sucessfully added new record to contact trace table';
-                        } else {
-                            echo "Error: " . $contact . "<br>" . mysqli_error($conn);
-                        }
+                        $i += 1;
                     }
-                    break;
+                    $is_true = false;
+                }
+                // $new_id = $curr_travel;
+
+                for ($pos=$i; $pos < $totalContactData; $pos++) { 
+                    $contact = "INSERT INTO contact_trace (user_case_id, person_name, contact_date, address) VALUES($covidId, '{$contact_json[$pos]->interact_name}', '{$contact_json[$pos]->interact_date}', '{$contact_json[$pos]->interact_location}')";
+        
+                    if (mysqli_query($conn, $travel) ){
+                        // $i += 1;
+                        // continue;
+                        // echo 'Sucessfully added new record to travel trace table';
+                    } else {
+                        echo "Error: " . $contact . "<br>" . mysqli_error($conn);
+                    }
+                }
+                       #2             #2
+                    // if(count($travelId) < count($travel_json)-1) {
+                       
+                    // } else {
+                    //     $travel = "INSERT INTO travel_history (user_travel, location, travel_date) VALUES($covidId, '{$contact_index->travel_location}', '{$contact_index->travel_date}')";
+        
+                    //     if (mysqli_query($conn, $travel) ){
+                    //         $i += 1;
+                    //         // continue;
+                    //         // echo 'Sucessfully added new record to travel trace table';
+                    //     } else {
+                    //         echo "Error: " . $travel . "<br>" . mysqli_error($conn);
+                    //     }
+                    // }
+                    // break;
                 // $new_id += 1;
-            }
-        }
+            // }
+        // }
     }
 
 
@@ -180,7 +276,7 @@ if(mysqli_query($conn, $covid)) {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-$returnarr[] = array("new_id"=>$data->userId->userId, "selected"=>$covidId, "contact"=>$contactId, "travel"=>$travelId, 'travel_json'=>$travel_json);
+$returnarr[] = array("new_id"=>$data->userId->userId, "selected"=>$covidId, "contact"=>$contactId, "travel"=>$travelId, 'travel_json'=>$travel_json, 'contact_json'=>$contact_json);
 echo json_encode($returnarr);
 mysqli_close($conn);
 
