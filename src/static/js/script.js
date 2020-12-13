@@ -272,6 +272,7 @@ let controls = (function () {
     let covidCase = document.querySelector('.covid-case');
     let civilStatus = document.querySelector('.civil-status');
     let address = document.querySelector('.address');
+
     let travelDetail;
     let intractDetail ;
     // * END OF VARIAAAAAAAAAAAAAAAAABLEEEEE!!!
@@ -371,7 +372,8 @@ let controls = (function () {
         travelDetail.forEach(data => {
             const loc = document.querySelectorAll('.locationwhen')
             const tloc = document.querySelectorAll('.travel-location')
-            travelHistory.push({'travel_date': loc[i].value, 'travel_location': tloc[i].value})        
+            const tid = document.querySelectorAll('.travel-id')
+            travelHistory.push({'travel_date': loc[i].value, 'travel_location': tloc[i].value,'travel_id': tid[i].value});        
             i += 1;
         })
         i = 0;
@@ -379,7 +381,8 @@ let controls = (function () {
             const interactWhen = document.querySelectorAll('.interact-locationwhen')
             const interactName = document.querySelectorAll('.contact-name')
             const interactLo = document.querySelectorAll('.contact-location')
-            contactHistory.push({'interact_date': interactWhen[i].value, 'interact_name': interactName[i].value, 'interact_location': interactLo[i].value})        
+            const interactId = document.querySelectorAll('.interact-id')
+            contactHistory.push({'interact_date': interactWhen[i].value, 'interact_name': interactName[i].value, 'interact_location': interactLo[i].value, 'interact_id': interactId[i].value})        
             i += 1;
         })
         console.log(userId)
@@ -405,77 +408,78 @@ let controls = (function () {
             },
             body: JSON.stringify(data)
         }).then((res) => {
-            return res.json();
+            // return res.json();
+            console.log('d')
         })
-        .then((data) => {
-            console.log(data)
-            const tableRecord = document.querySelector('.table-record');
-            console.log(data[0]);
-            const tableRow = document.createElement('tr');
-            tableRow.classList.add('table-row');
-            tableRow.classList.add('table-click');
-            tableRow.classList.add('table-row-data');
-            tableRecord.appendChild(tableRow);
-            const inputHidden = document.createElement('input')
-            inputHidden.type = 'hidden';
-            inputHidden.name = 'userId';
-            inputHidden.value = data[0].new_id;
-            const rowID = document.createElement('td');
-            rowID.classList.add('table-data');
-            rowID.textContent = data[0].new_id;
-            const fullName = document.createElement('td');
-            fullName.classList.add('table-data');
-            fullName.textContent = `${firstName.value}  ${lastName.value}`;
-            const rowAge = document.createElement('td');
-            rowAge.classList.add('table-data');
-            rowAge.textContent = age.value;
-            const rowAddress = document.createElement('td')
-            rowAddress.classList.add('table-data');
-            rowAddress.textContent = address.value;
-            const status = document.createElement('td')
-            status.classList.add('table-data')
-            const icon = document.createElement('i');
-            if (covidStatus !== 'Negative') {
-                icon.classList.add('positive');
-                icon.classList.add('fas');
-                icon.classList.add('fa-check-circle')
-                status.appendChild(icon)
-            } else {
-                icon.classList.add('positive');
-                icon.classList.add('fas');
-                icon.classList.add('fa-times-circle')
-                status.appendChild(icon)
-            }
+        // .then((data) => {
+        //     console.log(data)
+        //     const tableRecord = document.querySelector('.table-record');
+        //     console.log(data[0]);
+        //     const tableRow = document.createElement('tr');
+        //     tableRow.classList.add('table-row');
+        //     tableRow.classList.add('table-click');
+        //     tableRow.classList.add('table-row-data');
+        //     tableRecord.appendChild(tableRow);
+        //     const inputHidden = document.createElement('input')
+        //     inputHidden.type = 'hidden';
+        //     inputHidden.name = 'userId';
+        //     inputHidden.value = data[0].new_id;
+        //     const rowID = document.createElement('td');
+        //     rowID.classList.add('table-data');
+        //     rowID.textContent = data[0].new_id;
+        //     const fullName = document.createElement('td');
+        //     fullName.classList.add('table-data');
+        //     fullName.textContent = `${firstName.value}  ${lastName.value}`;
+        //     const rowAge = document.createElement('td');
+        //     rowAge.classList.add('table-data');
+        //     rowAge.textContent = age.value;
+        //     const rowAddress = document.createElement('td')
+        //     rowAddress.classList.add('table-data');
+        //     rowAddress.textContent = address.value;
+        //     const status = document.createElement('td')
+        //     status.classList.add('table-data')
+        //     const icon = document.createElement('i');
+        //     if (covidStatus !== 'Negative') {
+        //         icon.classList.add('positive');
+        //         icon.classList.add('fas');
+        //         icon.classList.add('fa-check-circle')
+        //         status.appendChild(icon)
+        //     } else {
+        //         icon.classList.add('negative');
+        //         icon.classList.add('fas');
+        //         icon.classList.add('fa-times-circle')
+        //         status.appendChild(icon)
+        //     }
 
-            const action = document.createElement('td');
-            action.classList.add('table-data');
-            const anchorEdit  = document.createElement('a');
-            anchorEdit.classList.add('btn-edit');
-            const btnDelete = document.createElement('button');
-            btnDelete.classList.add('btn-trash')
-            // data-bs-toggle="modal" data-bs-target="#confirm-modal"
-            btnDelete.setAttribute('data-bs-toggle', 'modal');
-            btnDelete.setAttribute('data-bs-target', '#confirm-modal')
-            action.appendChild(anchorEdit);
-            action.appendChild(btnDelete)
-            const edit = document.createElement('i');
-            const deleteRow = document.createElement('i');
-            edit.classList.add('far');
-            edit.classList.add('fa-edit');
-            deleteRow.classList.add('fas');
-            deleteRow.classList.add('fa-trash');
+        //     const action = document.createElement('td');
+        //     action.classList.add('table-data');
+        //     const anchorEdit  = document.createElement('a');
+        //     anchorEdit.classList.add('btn-edit');
+        //     const btnDelete = document.createElement('button');
+        //     btnDelete.classList.add('btn-trash')
+        //     // data-bs-toggle="modal" data-bs-target="#confirm-modal"
+        //     btnDelete.setAttribute('data-bs-toggle', 'modal');
+        //     btnDelete.setAttribute('data-bs-target', '#confirm-modal')
+        //     action.appendChild(anchorEdit);
+        //     action.appendChild(btnDelete)
+        //     const edit = document.createElement('i');
+        //     const deleteRow = document.createElement('i');
+        //     edit.classList.add('far');
+        //     edit.classList.add('fa-edit');
+        //     deleteRow.classList.add('fas');
+        //     deleteRow.classList.add('fa-trash');
 
-            anchorEdit.appendChild(edit);
-            btnDelete.appendChild(deleteRow);
-            tableRow.appendChild(inputHidden);
-            tableRow.appendChild(rowID);
-            tableRow.appendChild(fullName);
-            tableRow.appendChild(rowAge);
-            tableRow.appendChild(rowAddress);
-            tableRow.appendChild(status);
-            tableRow.appendChild(action);
-            activateEventListener();
-        })
+        //     anchorEdit.appendChild(edit);
+        //     btnDelete.appendChild(deleteRow);
+        //     tableRow.appendChild(inputHidden);
+        //     tableRow.appendChild(rowID);
+        //     tableRow.appendChild(fullName);
+        //     tableRow.appendChild(rowAge);
+        //     tableRow.appendChild(rowAddress);
+        //     tableRow.appendChild(status);
+        //     tableRow.appendChild(action);
+        //     activateEventListener();
+        // })
         .catch((err) => {
             console.log(err)
         })
@@ -594,12 +598,12 @@ let controls = (function () {
                 })
 
                 data[0].travel_data.forEach(travelData => {
-                    more(travelData.travel_date, travelData.travel_location)
+                    more(travelData.travel_date, travelData.travel_location, travelData.travel_id)
                 })
 
                 data[0].contact_data.forEach(contactData => {
                     // date name loc
-                    interactMore(contactData.contact_date, contactData.contact_person, contactData.contact_address)
+                    interactMore(contactData.contact_date, contactData.contact_person, contactData.contact_address, contactData.contact_id)
                 })
                 
 
@@ -634,7 +638,7 @@ let controls = (function () {
     
 })();
 
-function more(date='', loc='') {
+function more(date='', loc='', id='') {
     const travelHistory = document.querySelector('.travel-history-container');
     // travelHistory.innerHTML += ` <div class="travel-detail">
     // <input type="date" class="locationwhen" name="travel-when">
@@ -646,6 +650,11 @@ function more(date='', loc='') {
     // `;
     const travelDetail = document.createElement('div')
     travelDetail.classList.add('travel-detail');
+    const inputIDHidden = document.createElement('input');
+    inputIDHidden.type = 'hidden';
+    inputIDHidden.classList.add('travel-id');
+    inputIDHidden.name = 'interact-id';
+    inputIDHidden.value = id;
     const inputDate = document.createElement('input');
     inputDate.type = 'date';
     try {
@@ -667,13 +676,14 @@ function more(date='', loc='') {
     spanText.textContent = 'Location';
 
     travelHistory.appendChild(travelDetail);
+    travelDetail.appendChild(inputIDHidden);
     travelDetail.appendChild(inputDate);
     labelInput.appendChild(inputText);
     labelInput.appendChild(spanText);
     travelDetail.appendChild(labelInput);
 }
 
-function interactMore(date='', name='', loc='') {
+function interactMore(date='', name='', loc='', id='') {
     const travelHistory = document.querySelector('.interact-history-container');
     // travelHistory.innerHTML += ` <div class="interact-detail">
     // <input type="date" class="interact-locationwhen" name="contact-when">
@@ -691,6 +701,11 @@ function interactMore(date='', name='', loc='') {
 
     const travelDetail = document.createElement('div')
     travelDetail.classList.add('interact-detail');
+    const inputIDHidden = document.createElement('input');
+    inputIDHidden.type = 'hidden';
+    inputIDHidden.classList.add('interact-id');
+    inputIDHidden.name = 'interact-id';
+    inputIDHidden.value = id;
     const inputDate = document.createElement('input');
     inputDate.type = 'date';
     inputDate.classList.add('interact-locationwhen');
@@ -727,6 +742,7 @@ function interactMore(date='', name='', loc='') {
     spanTextLoc.textContent = 'Location';
 
     travelHistory.appendChild(travelDetail);
+    travelDetail.appendChild(inputIDHidden);
     travelDetail.appendChild(inputDate);
     labelInputName.appendChild(inputTextName);
     labelInputName.appendChild(spanTextName);

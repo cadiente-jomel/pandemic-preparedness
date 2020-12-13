@@ -37,7 +37,7 @@ while($row1 = mysqli_fetch_assoc($covidResults)){
         if (mysqli_num_rows($travelResults) > 0) {
             while($row2 = mysqli_fetch_assoc($travelResults)) {
                 $travel_data[] = array("travel_location"=> $row2['location'],
-                "travel_date" => $row2['travel_date'],    
+                "travel_date" => $row2['travel_date'], 'travel_id'=>$row2['travel_id'],    
             );
             }
         }
@@ -46,7 +46,7 @@ while($row1 = mysqli_fetch_assoc($covidResults)){
             while($row3 = mysqli_fetch_assoc($contactResults)) {
                 $contact_data[] = array("contact_person" => $row3['person_name'], 
                     "contact_date" => $row3['contact_date'],
-                    "contact_address" => $row3['address'],
+                    "contact_address" => $row3['address'],  "contact_id"=>$row3['contact_id']
                     
             );
             }
