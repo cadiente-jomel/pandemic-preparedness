@@ -276,6 +276,81 @@ let controls = (function () {
     let travelDetail;
     let intractDetail ;
     // * END OF VARIAAAAAAAAAAAAAAAAABLEEEEE!!!
+    const editBtnListener = () =>  {
+        const editBtn = document.querySelectorAll('.btn-edit');
+    
+    editBtn.forEach(btn => {
+        btn.addEventListener('click', e => {
+            resetInput();
+            curr_url = btn.parentElement.parentElement.childNodes[0].value
+            curr_row = btn.parentElement.parentElement
+            // alert(curr_url)
+            e.preventDefault();
+
+            console.log(curr_url)
+
+            dataEdit = {
+                id: curr_url,
+            }
+            let url = btn.attributes.href.textContent;
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataEdit),
+            })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.log(data);
+                form.attributes.action.textContent = '../includes/update_user.php';
+                // addBtn.click();
+                firstName.value = data[0].first_name;
+                lastName.value = data[0].last_name;
+                age.value = data[0].age;
+                occupation.value = data[0].occupation;
+                address.value = data[0].address;
+                days.value = data[0].days;
+                covidStatus.value = data[0].covid_status;
+                // covidStatus.textContent = data[0].covid_status;
+                // civilStatus.textContent = data[0].civil_status;
+                civilStatus.value = data[0].civil_status;
+                // covidCase.textContent = data[0].covid_case;
+                covidCase.value = data[0].covid_case;
+                const prevs = document.querySelectorAll('.previous')
+                let arr = [data[0].covid_status,
+                            data[0].covid_case,
+                            data[0].civil_status];
+                let i = 0;
+                const prevsVal = document.querySelectorAll('.previous-value')
+                prevs.forEach(prev => {
+                    prev.classList.remove('text-hide');
+                    prevsVal[i].textContent = arr[i];
+                    i+=1;
+                })
+
+                data[0].travel_data.forEach(travelData => {
+                    let curr = travelBtn(1);
+                    more(curr ,travelData.travel_date, travelData.travel_location, travelData.travel_id)
+                })
+
+                data[0].contact_data.forEach(contactData => {
+                    let curr = interactBtn(1);
+                    interactMore(curr, contactData.contact_date, contactData.contact_person, contactData.contact_address, contactData.contact_id);
+                })
+                
+                // historyDelete();
+
+                // flag = false;
+                // firstName.value = data.
+            })
+        })
+    })
+    }
+    editBtnListener();
+
     const activateEventListener = () => {
         const tableRow = document.querySelectorAll('.table-click');
 
@@ -360,10 +435,27 @@ let controls = (function () {
         });
     }
     activateEventListener();
+
+    try {
+        const modal = document.querySelector('.modal-backdrop')
+
+        modal.addEventListener('click', () => {
+            alert('modal clicked!')
+        })
+    }catch {}
+
     let curr_url, curr_row;
     const form = document.querySelector('.add-form')
     form.addEventListener('submit', e => {
+        let flag = true;
         const url = form.attributes.action.textContent;
+        if(url === '../includes/update_user.php'){
+            flag = false;
+        }
+        // if(url === '../includes/update_user.php'); {
+        //     alert('form rerendered!');
+        //     editBtnListener();
+        // }
         e.preventDefault();
         travelDetail = document.querySelectorAll('.travel-detail');
         intractDetail = document.querySelectorAll('.interact-detail');
@@ -386,7 +478,7 @@ let controls = (function () {
             i += 1;
         })
         console.log(userId)
-        let data = {
+        let dataBody = {
             userId: userId,
             first_name: firstName.value, 
             last_name: lastName.value,
@@ -400,86 +492,104 @@ let controls = (function () {
             travel_history: travelHistory,
             contact_history: contactHistory
         }
-        console.log(JSON.stringify(data))
+        // console.log(JSON.stringify(dataBody))
         fetch(url, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(dataBody)
         }).then((res) => {
             // return res.json();
-            console.log('d')
+            return res.json();
         })
-        // .then((data) => {
-        //     console.log(data)
-        //     const tableRecord = document.querySelector('.table-record');
-        //     console.log(data[0]);
-        //     const tableRow = document.createElement('tr');
-        //     tableRow.classList.add('table-row');
-        //     tableRow.classList.add('table-click');
-        //     tableRow.classList.add('table-row-data');
-        //     tableRecord.appendChild(tableRow);
-        //     const inputHidden = document.createElement('input')
-        //     inputHidden.type = 'hidden';
-        //     inputHidden.name = 'userId';
-        //     inputHidden.value = data[0].new_id;
-        //     const rowID = document.createElement('td');
-        //     rowID.classList.add('table-data');
-        //     rowID.textContent = data[0].new_id;
-        //     const fullName = document.createElement('td');
-        //     fullName.classList.add('table-data');
-        //     fullName.textContent = `${firstName.value}  ${lastName.value}`;
-        //     const rowAge = document.createElement('td');
-        //     rowAge.classList.add('table-data');
-        //     rowAge.textContent = age.value;
-        //     const rowAddress = document.createElement('td')
-        //     rowAddress.classList.add('table-data');
-        //     rowAddress.textContent = address.value;
-        //     const status = document.createElement('td')
-        //     status.classList.add('table-data')
-        //     const icon = document.createElement('i');
-        //     if (covidStatus !== 'Negative') {
-        //         icon.classList.add('positive');
-        //         icon.classList.add('fas');
-        //         icon.classList.add('fa-check-circle')
-        //         status.appendChild(icon)
-        //     } else {
-        //         icon.classList.add('negative');
-        //         icon.classList.add('fas');
-        //         icon.classList.add('fa-times-circle')
-        //         status.appendChild(icon)
-        //     }
+        .then((data) => {
+            // alert(url);
+            if(!flag){
+                alert(url)
+                // alert('dd')
+                dataBody = {};
+                document.querySelector('.modal-close').click();
+                console.log(document.querySelector('.modal-close'));
+                
+            } else {
+                alert(url)
+                  console.log(data)
+            const tableRecord = document.querySelector('.table-record');
+            // console.log(data[0]);
+            const tableRow = document.createElement('tr');
+            tableRow.classList.add('table-row');
+            tableRow.classList.add('table-click');
+            tableRow.classList.add('table-row-data');
+            tableRecord.appendChild(tableRow);
+            const inputHidden = document.createElement('input')
+            inputHidden.type = 'hidden';
+            inputHidden.name = 'userId';
+            inputHidden.value = data[0].new_id;
+            const rowID = document.createElement('td');
+            rowID.classList.add('table-data');
+            rowID.textContent = data[0].new_id;
+            const fullName = document.createElement('td');
+            fullName.classList.add('table-data');
+            fullName.textContent = `${firstName.value}  ${lastName.value}`;
+            const rowAge = document.createElement('td');
+            rowAge.classList.add('table-data');
+            rowAge.textContent = age.value;
+            const rowAddress = document.createElement('td')
+            rowAddress.classList.add('table-data');
+            rowAddress.textContent = address.value;
+            const status = document.createElement('td')
+            status.classList.add('table-data')
+            const icon = document.createElement('i');
+            if (covidStatus !== 'Negative') {
+                icon.classList.add('positive');
+                icon.classList.add('fas');
+                icon.classList.add('fa-check-circle')
+                status.appendChild(icon)
+            } else {
+                icon.classList.add('negative');
+                icon.classList.add('fas');
+                icon.classList.add('fa-times-circle')
+                status.appendChild(icon)
+            }
 
-        //     const action = document.createElement('td');
-        //     action.classList.add('table-data');
-        //     const anchorEdit  = document.createElement('a');
-        //     anchorEdit.classList.add('btn-edit');
-        //     const btnDelete = document.createElement('button');
-        //     btnDelete.classList.add('btn-trash')
-        //     // data-bs-toggle="modal" data-bs-target="#confirm-modal"
-        //     btnDelete.setAttribute('data-bs-toggle', 'modal');
-        //     btnDelete.setAttribute('data-bs-target', '#confirm-modal')
-        //     action.appendChild(anchorEdit);
-        //     action.appendChild(btnDelete)
-        //     const edit = document.createElement('i');
-        //     const deleteRow = document.createElement('i');
-        //     edit.classList.add('far');
-        //     edit.classList.add('fa-edit');
-        //     deleteRow.classList.add('fas');
-        //     deleteRow.classList.add('fa-trash');
+            const action = document.createElement('td');
+            action.classList.add('table-data');
+            const anchorEdit  = document.createElement('a');
+            anchorEdit.classList.add('btn-edit');
+            anchorEdit.href = '../includes/update_record.php';
+            anchorEdit.setAttribute('data-bs-target', '#add-modal');
+            anchorEdit.setAttribute('data-bs-toggle', 'modal');
+            const btnDelete = document.createElement('button');
+            btnDelete.classList.add('btn-trash')
+            // data-bs-toggle="modal" data-bs-target="#confirm-modal"
+            btnDelete.setAttribute('data-bs-toggle', 'modal');
+            btnDelete.setAttribute('data-bs-target', '#confirm-modal')
+            action.appendChild(anchorEdit);
+            action.appendChild(btnDelete)
+            const edit = document.createElement('i');
+            const deleteRow = document.createElement('i');
+            edit.classList.add('far');
+            edit.classList.add('fa-edit');
+            deleteRow.classList.add('fas');
+            deleteRow.classList.add('fa-trash');
 
-        //     anchorEdit.appendChild(edit);
-        //     btnDelete.appendChild(deleteRow);
-        //     tableRow.appendChild(inputHidden);
-        //     tableRow.appendChild(rowID);
-        //     tableRow.appendChild(fullName);
-        //     tableRow.appendChild(rowAge);
-        //     tableRow.appendChild(rowAddress);
-        //     tableRow.appendChild(status);
-        //     tableRow.appendChild(action);
-        //     activateEventListener();
-        // })
+            anchorEdit.appendChild(edit);
+            btnDelete.appendChild(deleteRow);
+            tableRow.appendChild(inputHidden);
+            tableRow.appendChild(rowID);
+            tableRow.appendChild(fullName);
+            tableRow.appendChild(rowAge);
+            tableRow.appendChild(rowAddress);
+            tableRow.appendChild(status);
+            tableRow.appendChild(action);
+           
+            resetInput();
+                activateEventListener();
+                editBtnListener();
+            }
+          
+        })
         .catch((err) => {
             console.log(err)
         })
@@ -543,75 +653,8 @@ let controls = (function () {
         })
     })
 
-    const editBtn = document.querySelectorAll('.btn-edit');
+   
     
-    editBtn.forEach(btn => {
-        btn.addEventListener('click', e => {
-            resetInput();
-            curr_url = btn.parentElement.parentElement.childNodes[0].value
-            curr_row = btn.parentElement.parentElement
-            // alert(curr_url)
-            e.preventDefault();
-
-            console.log(curr_url)
-
-            dataEdit = {
-                id: curr_url,
-            }
-            let url = btn.attributes.href.textContent;
-            fetch(url, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataEdit),
-            })
-            .then((res) => {
-                return res.json();
-            })
-            .then((data) => {
-                console.log(data);
-                form.attributes.action.textContent = '../includes/update_user.php';
-                // addBtn.click();
-                firstName.value = data[0].first_name;
-                lastName.value = data[0].last_name;
-                age.value = data[0].age;
-                occupation.value = data[0].occupation;
-                address.value = data[0].address;
-                days.value = data[0].days;
-                covidStatus.value = data[0].covid_status;
-                // covidStatus.textContent = data[0].covid_status;
-                // civilStatus.textContent = data[0].civil_status;
-                civilStatus.value = data[0].civil_status;
-                // covidCase.textContent = data[0].covid_case;
-                covidCase.value = data[0].covid_case;
-                const prevs = document.querySelectorAll('.previous')
-                let arr = [data[0].covid_status,
-                            data[0].covid_case,
-                            data[0].civil_status];
-                let i = 0;
-                const prevsVal = document.querySelectorAll('.previous-value')
-                prevs.forEach(prev => {
-                    prev.classList.remove('text-hide');
-                    prevsVal[i].textContent = arr[i];
-                    i+=1;
-                })
-
-                data[0].travel_data.forEach(travelData => {
-                    more(travelData.travel_date, travelData.travel_location, travelData.travel_id)
-                })
-
-                data[0].contact_data.forEach(contactData => {
-                    // date name loc
-                    interactMore(contactData.contact_date, contactData.contact_person, contactData.contact_address, contactData.contact_id)
-                })
-                
-
-                // flag = false;
-                // firstName.value = data.
-            })
-        })
-    })
 
     const btnDeleteConfirm = document.querySelector('.btn-confirm-delete');
     btnDeleteConfirm.addEventListener('click', e => {
@@ -638,17 +681,118 @@ let controls = (function () {
     
 })();
 
-function more(date='', loc='', id='') {
+const historyDelete = (btn) => {
+    /*
+    icon.classList.add('positive');
+                icon.classList.add('fas');
+                icon.classList.add('fa-check-circle')
+    */
+    btn.addEventListener('click', e => {
+        let del = btn.childNodes[0];
+
+        del.classList.remove('fa-minus-circle');
+        del.classList.add('fa-check-circle');
+        del.style.color = '#4bb543';
+        del.setAttribute('data-toggle', 'tooltip');
+        del.setAttribute('data-placement', 'top');
+        del.setAttribute('title', 'confirm delete?');
+
+        del.addEventListener('click', () => {
+            console.log('deleted');
+            
+            
+            let valueToBeDeleted = btn.nextElementSibling.value;
+            let currClass = btn.parentElement.className;
+            console.log(currClass);
+            data = {
+                id: valueToBeDeleted,
+                table: currClass
+            }
+            fetch('../includes/delete_history.php', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(()=> {
+                btn.parentElement.remove();
+            }).catch((err) => {
+                console.log(err)
+            })
+        })
+        // btn.parentElement.remove();
+    })
+    // alert('history')
+    // const btns = document.querySelectorAll('.remove-container')
+
+    // btns.forEach(btn => {
+    //     btn.addEventListener('click', () => {
+    //         console.log('delete history');
+    //     })
+    // })
+}
+
+const addButton = (el, indicator=0) =>  {
+    let flag = 1;
+    flag = indicator
+    console.log('curr bool ' + flag)
+    const btnHis = document.createElement('div');
+    btnHis.setAttribute('data-toggle', 'tooltip');
+    btnHis.setAttribute('data-placement', 'top');
+    btnHis.setAttribute('title', 'delete this data');
+    btnHis.classList.add('remove-container');
+    const btnHisIcon = document.createElement('i');
+    btnHisIcon.classList.add('fas');
+    btnHisIcon.classList.add('fa-minus-circle');
+    btnHis.appendChild(btnHisIcon);
+    historyDelete(btnHis);
+    if (flag === 1) {
+        console.log(true)
+        return btnHis;
+    } else {
+        console.log(false)
+        el(btnHis);
+    }
+}
+
+const helper = (el, el1) => {
+    el(el1);
+}
+
+const travelBtn = (indicator=0) => {
+    return addButton(more, indicator);
+}
+
+const interactBtn = (indicator=1) => {
+    return addButton(interactMore, indicator);
+}
+
+const travelBool = () => {
+    travelBtn(0)
+}
+
+const interactBool = () => {
+    interactBtn(0)
+}
+
+
+const travelHistoryCon = document.querySelector('.travel-record-more')
+travelHistoryCon.addEventListener('click', travelBool);
+const interactHistoryCon = document.querySelector('.interact-record-more');
+interactHistoryCon.addEventListener('click', interactBool);
+
+function more(btnStr,date='', loc='', id='') {
     const travelHistory = document.querySelector('.travel-history-container');
-    // travelHistory.innerHTML += ` <div class="travel-detail">
-    // <input type="date" class="locationwhen" name="travel-when">
-    // <label class="custom-field one">
-    //     <input class="travel-location" type="text" name="travel-location" required/>
-    //     <span class="placeholder">Location</span>
-    // </label>
-    // </div>
-    // `;
+    console.log(typeof btnStr)
     const travelDetail = document.createElement('div')
+    if (typeof btnStr != "object") {
+        let btn = btnStr();
+        console.log(typeof btn)
+        console.log(btn)
+        travelDetail.appendChild(btn)
+    } else {
+        travelDetail.appendChild(btnStr)
+    }
     travelDetail.classList.add('travel-detail');
     const inputIDHidden = document.createElement('input');
     inputIDHidden.type = 'hidden';
@@ -681,9 +825,11 @@ function more(date='', loc='', id='') {
     labelInput.appendChild(inputText);
     labelInput.appendChild(spanText);
     travelDetail.appendChild(labelInput);
+    // return btnStr;
+    // historyDelete();
 }
 
-function interactMore(date='', name='', loc='', id='') {
+function interactMore(btnStr, date='', name='', loc='', id='') {
     const travelHistory = document.querySelector('.interact-history-container');
     // travelHistory.innerHTML += ` <div class="interact-detail">
     // <input type="date" class="interact-locationwhen" name="contact-when">
@@ -701,6 +847,16 @@ function interactMore(date='', name='', loc='', id='') {
 
     const travelDetail = document.createElement('div')
     travelDetail.classList.add('interact-detail');
+    // const btnHis = document.createElement('div');
+    // btnHis.setAttribute('data-toggle', 'tooltip');
+    // btnHis.setAttribute('data-placement', 'top');
+    // btnHis.setAttribute('title', 'delete this data');
+    // btnHis.classList.add('remove-container');
+    // const btnHisIcon = document.createElement('i');
+    // btnHisIcon.classList.add('fas');
+    // btnHisIcon.classList.add('fa-minus-circle');
+    // btnHis.appendChild(btnHisIcon);
+    travelDetail.appendChild(btnStr);
     const inputIDHidden = document.createElement('input');
     inputIDHidden.type = 'hidden';
     inputIDHidden.classList.add('interact-id');
@@ -751,5 +907,4 @@ function interactMore(date='', name='', loc='', id='') {
     labelInputLoc.appendChild(spanTextLoc);
     travelDetail.appendChild(labelInputLoc);
 }
-
 
